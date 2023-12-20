@@ -120,7 +120,7 @@ class SnowflakeConnector(SQLConnector):
             if schema_name.lower() != "information_schema"
         ]
         self.logger.info(f"Schemas: {schema_names}")
-        self.logger("unfiltered schema names: ")
+        self.logger.info("unfiltered schema names: ")
         self.logger.info(self.get_schema_names(engine, inspected))
         for schema_name in schema_names:
             # Iterate through each table and view
