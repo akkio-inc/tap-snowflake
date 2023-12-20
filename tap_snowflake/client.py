@@ -119,6 +119,9 @@ class SnowflakeConnector(SQLConnector):
             for schema_name in self.get_schema_names(engine, inspected)
             if schema_name.lower() != "information_schema"
         ]
+        self.logger.info(f"Schemas: {schema_names}")
+        self.logger("unfiltered schema names: ")
+        self.logger.info(self.get_schema_names(engine, inspected))
         for schema_name in schema_names:
             # Iterate through each table and view
             for table_name, is_view in self.get_object_names(
