@@ -109,7 +109,7 @@ class SnowflakeConnector(SQLConnector):
             The discovered catalog entries as a list.
         """
         result: list[dict] = []
-        tables = [t.lower() for t in self.config.get("tables", [])]
+        tables = [t for t in self.config.get("tables", [])]
         engine = self.create_sqlalchemy_engine()
         inspected = sqlalchemy.inspect(engine)
         schema_names = [
