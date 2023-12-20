@@ -109,7 +109,9 @@ class SnowflakeConnector(SQLConnector):
             The discovered catalog entries as a list.
         """
         result: list[dict] = []
-        tables = [t for t in self.config.get("tables", [])]
+        tables = self.config.get("tables", [])
+        self.logger.info("Discovering catalog entries...")
+        self.logger.info(f"Tables: {tables}")
         engine = self.create_sqlalchemy_engine()
         inspected = sqlalchemy.inspect(engine)
         schema_names = [
@@ -123,6 +125,9 @@ class SnowflakeConnector(SQLConnector):
                 engine, inspected, schema_name
             ):
                 if (not tables) or (f"{schema_name}.{table_name}" in tables):
+                    self.logger.info(
+                        f"Discovering catalog entry: {schema_name}.{table_name}"
+                    )
                     catalog_entry = self.discover_catalog_entry(
                         engine, inspected, schema_name, table_name, is_view
                     )
