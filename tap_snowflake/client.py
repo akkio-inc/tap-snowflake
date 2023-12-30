@@ -129,7 +129,7 @@ class SnowflakeConnector(SQLConnector):
                     )
                     self.logger.info(f"catalog entry: {catalog_entry}")
                     result.append(catalog_entry.to_dict())
-        self.logger().info(f"result: {result}")
+        self.logger.info(f"result: {result}")
 
         return result
 
