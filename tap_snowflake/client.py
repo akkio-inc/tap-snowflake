@@ -110,7 +110,7 @@ class SnowflakeConnector(SQLConnector):
         """
         result: list[dict] = []
         tables = self.config.get("tables", [])
-        self.logger.info(f"these are the tables: {tables}")
+        self.logger.info(f"these are the tables no lowered: {tables}")
         engine = self.create_sqlalchemy_engine()
         inspected = sqlalchemy.inspect(engine)
         schema_names = [
@@ -129,6 +129,7 @@ class SnowflakeConnector(SQLConnector):
                     )
                     self.logger.info(f"catalog entry: {catalog_entry}")
                     result.append(catalog_entry.to_dict())
+        self.logger().info(f"result: {result}")
 
         return result
 
