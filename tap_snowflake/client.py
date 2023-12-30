@@ -110,6 +110,7 @@ class SnowflakeConnector(SQLConnector):
         """
         result: list[dict] = []
         tables = self.config.get("tables", [])
+        self.logger.info(f"these are the tables: {tables}")
         engine = self.create_sqlalchemy_engine()
         inspected = sqlalchemy.inspect(engine)
         schema_names = [
@@ -126,6 +127,7 @@ class SnowflakeConnector(SQLConnector):
                     catalog_entry = self.discover_catalog_entry(
                         engine, inspected, schema_name, table_name, is_view
                     )
+                    self.logger.info(f"catalog entry: {catalog_entry}")
                     result.append(catalog_entry.to_dict())
 
         return result
